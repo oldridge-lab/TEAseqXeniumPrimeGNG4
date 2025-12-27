@@ -1,0 +1,40 @@
+Demultiplexing for ATAC and RNA libraries was performed by the CHOP High-Throughput Sequencing Core
+Pooled ATAC libraries were sequenced on a single Illumina NovaSeq6000 S4 flow cell
+RNA libraries were split across Illumina NovaSeq6000 S2 and SP flow cells (ADT and HTO library reads from these flow cells were not used - only the repeated sequencing run with greater depth - refer to Supplemental Methods text for details) 
+
+------------------------------
+
+ATAC Library Demultiplexing
+
+bcl2fastq 
+--input-dir /flowcell_filepath/Data/Intensities/BaseCalls 
+--output-dir /output_folder
+--sample-sheet /filepath/ATAC_sample_sheet.csv 
+--no-lane-splitting 
+--create-fastq-for-index-reads 
+--barcode-mismatches 1 
+--ignore-missing-filter 
+--ignore-missing-bcl 
+--use-bases-mask=Y50n*,I8n*,n8Y16,Y50n*
+--ignore-missing-positions 
+
+------------------------------
+
+GEX (Gene Expression, RNA) Library Demultiplexing
+
+bcl2fastq
+--input-dir /flowcell_filepath/Data/Intensities/BaseCalls
+--output-dir /output_folder
+--sample-sheet /filepath/GEX_sample_sheet.csv
+--no-lane-splitting
+--create-fastq-for-index-reads
+--barcode-mismatches 1
+--ignore-missing-filter
+--ignore-missing-bcl
+--use-bases-mask Y*,I10,Y10,Y*
+--ignore-missing-positions
+
+------------------------------
+
+Library index sequences from 10X Single Index Kit N Set A - Chromium Single Cell Multiome ATAC library
+https://www.10xgenomics.com/support/single-cell-multiome-atac-plus-gene-expression/documentation/steps/sequencing/sample-index-sets-for-single-cell-multiome-atac-plus-gex-libraries

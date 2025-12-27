@@ -1,0 +1,5 @@
+cellranger_multi folder details
+
+GEM1-8 folders = contain necessary files to run cellranger multi command on GEX/ADT/HTO modalities for each of 8 GEM wells. Each contains GEM#_multi_config.csv and GEM#_multi.sh files for running pipeline.
+
+antibody_barcodes folders = contains reference csv for barcodes for TotalSeqA Human Universal Cocktail V1 as well as TotalSeqA CCR7 and TotalSeqA HTO1-16 appended to bottom. Revised file from BioLegend as follows - renaming ADT to have adt_prefix, removing all clone names, and changing all underscores to hyphens

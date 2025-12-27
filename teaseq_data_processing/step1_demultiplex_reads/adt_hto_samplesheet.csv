@@ -1,0 +1,40 @@
+[Header],,,,,,,,,
+IEMFileVersion,5,,,,,,,,
+Investigator Name,Name,,,,,,,,
+Experiment Name,10X,,,,,,,,
+Date,6242024,,,,,,,,
+Workflow,GenerateFASTQ,,,,,,,,
+Application,NovaSeq_FASTQ_Only,,,,,,,,
+Instrument Type,NovaSeq,,,,,,,,
+Assay,10X,,,,,,,,
+Index Adapters,single,,,,,,,,
+Description,SP-100,,,,,,,,
+Chemistry,Amplicon,,,,,,,,
+,,,,,,,,,
+[Reads],,,,,,,,,
+28,,,,,,,,,
+8,,,,,,,,,
+15,,,,,,,,,
+,,,,,,,,,
+[Settings],,,,,,,,,
+BarcodeMismatchesIndex1,1,,,,,,,,
+NoLaneSpliting,TRUE,,,,,,,,
+,,,,,,,,,
+[Data],,,,,,,,,
+Sample_ID,Sample_Name,Sample_Plate,Sample_Well,Index_Plate_Well,I7_Index_ID,index,I5_Index_ID,index2,Sample_Project
+ADT_1,,,,,,ATTACTCG,,,,240624_ADT_HTO
+ADT_2,,,,,,TCAGAGCC,,,,240624_ADT_HTO
+ADT_3,,,,,,TCTCCGGA,,,,240624_ADT_HTO
+ADT_4,,,,,,AATGAGCG,,,,240624_ADT_HTO
+ADT_5,,,,,,GGAATCTC,,,,240624_ADT_HTO
+ADT_6,,,,,,TTCTGAAT,,,,240624_ADT_HTO
+ADT_7,,,,,,ACGAATTC,,,,240624_ADT_HTO
+ADT_8,,,,,,AGCTTCAG,,,,240624_ADT_HTO
+HTO_1,,,,,,CGAGTAAT,,,,240624_ADT_HTO
+HTO_2,,,,,,GCGCATTA,,,,240624_ADT_HTO
+HTO_3,,,,,,ACGTCCTG,,,,240624_ADT_HTO
+HTO_4,,,,,,TTCGCGGA,,,,240624_ADT_HTO
+HTO_5,,,,,,GCGCGAGA,,,,240624_ADT_HTO
+HTO_6,,,,,,CTATCGCT,,,,240624_ADT_HTO
+HTO_7,,,,,,AGGCTATA,,,,240624_ADT_HTO
+HTO_8,,,,,,GCCTCTAT,,,,240624_ADT_HTO

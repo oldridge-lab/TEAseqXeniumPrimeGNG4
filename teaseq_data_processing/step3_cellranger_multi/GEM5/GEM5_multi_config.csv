@@ -1,0 +1,14 @@
+[gene-expression] # Providing path to GEX reference genome
+reference,/reference_genome_filepath/refdata-cellranger-arc-GRCh38-2020-A-2.0.0
+chemistry,ARC-v1
+create-bam,true
+
+[feature] # Path to barcodes for each ADT and HTO antibody used
+reference,/antibody_barcode_spreadsheet/filepath/adt_hto_barcodes_revised.csv
+
+[libraries] # Path to folder containing demultiplexed fastq.gz files for each library
+fastq_id,fastqs,feature_types
+GEX_5,/s2_flowcell_filepath/GEX_5,Gene Expression
+GEX_5,/sp_flowcell_filepath/GEX_5,Gene Expression
+ADT_5,/adt_hto_flowcell_filepath/ADT_5,Antibody Capture
+HTO_5,/adt_hto_flowcell_filepath/HTO_5,Antibody Capture

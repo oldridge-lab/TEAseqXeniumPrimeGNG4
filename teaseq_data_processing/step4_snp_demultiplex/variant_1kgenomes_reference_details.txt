@@ -1,0 +1,6 @@
+Recommended vcf file for variant calling on Souporcell GitHub page was downloaded (refer to https://github.com/wheaton5/souporcell)
+
+'Common variant files from 1k genomes filtered to variants >= 2% allele frequency in the population and limited to SNPs can be found here for GRCh38'
+curl ftp://ftp.eng.auburn.edu/pub/whh0027/common_variants_grch38.vcf.gz -o common_variants_grch38.vcf.gz
+
+Next, chromosome names in vcf file were modified to align with standard hg38 names
