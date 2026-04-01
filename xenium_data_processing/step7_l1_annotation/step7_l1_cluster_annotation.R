@@ -63,7 +63,7 @@ xp_l1_annot <- c(
   '25' = 'Mast' # Separate granulocyte cluster from 'Gran' with mast cell signature
 )
 
-# For data and rationale supporting cluster annotations, refer to Fig. S14 and Data File S4 for key DEGs, Fig. S16 for spatial distribution, and Supplementary Materials for references and discussion
+# For data and rationale supporting cluster annotations, refer to Fig. S7D and Data File S4 for key DEGs, Fig. S8G-S8H for spatial distribution, and Methods text
 
 # Apply L1 annotations to full object
 DefaultAssay(xp.obj) <- 'RNA'

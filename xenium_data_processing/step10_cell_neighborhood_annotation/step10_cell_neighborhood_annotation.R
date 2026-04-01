@@ -7,7 +7,7 @@
 # Code adapted from related GitHub page - https://github.com/nolanlab/NeighborhoodCoordination
 # CN generation for tonsil Xenium Prime dataset was performed in collaboration with Yutong Zhu from Oldridge Lab. Refer to Python scripts in 'step9_wsi_registration_cn_analysis' folder for details regarding CN generation.
 
-# CNs were annotated as below, then visualized using Xenium Explorer. Refer to Fig S16 and related script for further data supporting annotation of CNs.
+# CNs were annotated as below, then visualized using Xenium Explorer. Refer to Fig S8 and related script for further data supporting annotation of CNs.
 
 # Set up R working environment ----
 

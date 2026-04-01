@@ -1,7 +1,8 @@
-# Barnett Dubensky et al. 2025 bioRxiv
-# Multimodal analysis defines GNG4 as a distinguishing feature of germinal center-positioned CD4 T follicular helper cells in humans
-# Code and data visualization for relevant panels of Fig. S11
-# Fig. S11 - Gating strategy and quantification of Gγ4 protein and GNG4 RNA expression in human CD4 T cells. 
+# Sam Barnett Dubensky et al.
+# Derek A. Oldridge & Laura A. Vella Labs at the Children's Hospital of Philadelphia
+# Multimodal analysis defines GNG4 as a distinguishing feature of germinal center-positioned Tfh in humans
+# Code and data visualization for indicated panels of Fig. S6 (related to Fig. 3)
+# Fig. S6 - GGating strategy and quantification of Gγ4 protein and GNG4 RNA expression in human CD4 T cells, related to Figure 3
 
 # Set up working environment ----
 
@@ -99,7 +100,7 @@ l3_teaseq_tfh_obj <- readRDS('/filepath/step15_tfh_subcluster/l3_teaseq_tfh_obj.
 # Filter Tcm from L3 object to create Tfh-only L4 object ----
 l4_teaseq_tfh_no_tcm_obj <- subset(l3_teaseq_tfh_obj, tfh_wnn_annot != 'Tcm')
 
-# Fig S11C-S11D, supplement to Fig. 3J -  Gy4 GMFI in Tfh subsets vs nonTfh and Naive cells ----
+# Fig S6B & S6D, supplement to Fig. 3J -  Gy4 GMFI in Tfh subsets vs nonTfh and Naive cells ----
 
 # Tfh Subsets Gy4 GMFI Barplot
 tfh_gng4_flow_df <- read_excel("/filepath/fig3/fig3_flow_data.xlsx", sheet = "Gy4_GMFI")
@@ -265,7 +266,7 @@ writexl::write_xlsx(
   path = "/filepath/fig3/fig3_supp/tfh_gy4_freq_gmfi_95ci_stats_transpose.xlsx"
 )
 
-# Fig S11G - Finding % PD1br Tfh of all Tfh in Tonsil or PBMC ----
+# Fig S6G - Finding % PD1br Tfh of all Tfh in Tonsil or PBMC [TEAseq - ADT] ----
 
 # RidgePlot visualization of PD1 expression in tonsil versus PBMC Tfh
 Idents(l4_teaseq_tfh_no_tcm_obj) <- 'hto.tissue'
@@ -319,7 +320,7 @@ pct_high_by_donor <- l4_teaseq_tfh_no_tcm_obj@meta.data %>%
   arrange(donor)
 pct_high_by_donor
 
-# Fig S11H - Finding % GNG4 RNA+ Tfh of all Tfh in Tonsil or PBMC ----
+# Fig S6H - Finding % GNG4 RNA+ Tfh of all Tfh in Tonsil or PBMC [TEAseq - RNA] ----
 
 # RidgePlot visualization of GNG4 RNA expression in tonsil versus PBMC Tfh
 Idents(l4_teaseq_tfh_no_tcm_obj) <- 'hto.tissue'
@@ -358,4 +359,4 @@ pct_high_by_donor <- l4_teaseq_tfh_no_tcm_obj@meta.data %>%
   arrange(donor)
 pct_high_by_donor
 
-# Remainder of plots in Fig S11 derive from FlowJo and Prism visualization
+# Remainder of plots in Fig S6 derive from FlowJo and Prism visualization

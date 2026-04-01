@@ -371,6 +371,9 @@ tcell_clust_cols <- c(
   "CD4 Inn"                = "#d699ac"
 )
 
+# Visualize 3WNN UMAP
+DimPlot(l2_teaseq_tcell_obj, reduction = "umap.wnn.harmony", pt.size = 0.75, label = TRUE, cols = tcell_clust_cols) + ggtitle('3WNN - After Harmony') + coord_fixed()
+
 # 12) Add TF motif information to object ----
 
 # Guided by Signac vignette - https://stuartlab.org/signac/articles/motif_vignette
@@ -382,7 +385,7 @@ seq_keep <- seqnames(gr) %in% seqnames(BSgenome.Hsapiens.UCSC.hg38)
 seq_keep <- as.vector(seq_keep)
 feat.keep <- GRangesToString(grange = gr[seq_keep])
 dim(l2_teaseq_tcell_obj)
-l2_teaseq_tcell_obj[['ATAC']] <- subset(l2_teaseq_tcell_obj[["ATAC"]], features = feat.keep) # 227103  - 226955  = 148 peaks removed
+l2_teaseq_tcell_obj[['ATAC']] <- subset(l2_teaseq_tcell_obj[["ATAC"]], features = feat.keep) # 227103 - 226955 = 148 peaks removed
 
 # Get list of motif position frequency matrices from JASPAR database
 DefaultAssay(l2_teaseq_tcell_obj) <- 'ATAC'

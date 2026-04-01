@@ -1,7 +1,8 @@
-# Barnett Dubensky et al. 2025 bioRxiv
-# Multimodal analysis defines GNG4 as a distinguishing feature of germinal center-positioned CD4 T follicular helper cells in humans
+# Sam Barnett Dubensky et al.
+# Derek A. Oldridge & Laura A. Vella Labs at the Children's Hospital of Philadelphia
+# Multimodal analysis defines GNG4 as a distinguishing feature of germinal center-positioned Tfh in humans
 # Code and data visualization for Fig. 2
-# Fig. 2 - GC versus nonGC-like Tfh states are skewed in helper-polarity phenotype.
+# Figure 2 - GC versus nonGC-like Tfh states are skewed in helper-polarity phenotype
 
 # Set up R working environment ----
 

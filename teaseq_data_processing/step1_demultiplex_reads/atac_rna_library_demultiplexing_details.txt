@@ -1,6 +1,6 @@
 Demultiplexing for ATAC and RNA libraries was performed by the CHOP High-Throughput Sequencing Core
 Pooled ATAC libraries were sequenced on a single Illumina NovaSeq6000 S4 flow cell
-RNA libraries were split across Illumina NovaSeq6000 S2 and SP flow cells (ADT and HTO library reads from these flow cells were not used - only the repeated sequencing run with greater depth - refer to Supplemental Methods text for details) 
+RNA libraries were split across Illumina NovaSeq6000 S2 and SP flow cells (ADT and HTO library reads from these flow cells were not used - only the repeated sequencing run with greater depth - refer to Methods text for details) 
 
 ------------------------------
 

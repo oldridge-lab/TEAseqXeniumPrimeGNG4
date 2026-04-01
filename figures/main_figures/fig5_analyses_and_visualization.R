@@ -1,7 +1,8 @@
-# Barnett Dubensky et al. 2025 bioRxiv
-# Multimodal analysis defines GNG4 as a distinguishing feature of germinal center-positioned CD4 T follicular helper cells in humans
+# Sam Barnett Dubensky et al.
+# Derek A. Oldridge & Laura A. Vella Labs at the Children's Hospital of Philadelphia
+# Multimodal analysis defines GNG4 as a distinguishing feature of germinal center-positioned Tfh in humans
 # Code and data visualization for Fig. 5
-# Fig. 5. GNG4 expression in Tfh is associated with activation in vitro and in vivo.
+# Figure 5 - GNG4 expression in Tfh is associated with activation in vitro and in vivo
 
 # Set up R working environment ----
 
@@ -187,7 +188,7 @@ saveRDS(gc_vs_nongc_tfh_dap_save, "/filepath/fig5/fig5a_l4_gc_vs_nongc_tfh_atac_
 # Annotate GNG4 DAP of interest for coverage plot visualization in Fig 5A
 # Filtered dataframe for pvaladj < 0.05 and open in > 10% of cells
 # All GNG4 DAP map to transcript variant ENST00000450593, GNG4-204, 4978bp, 75aa
-# Refer to Supplementary Methods for DAP region annotation - visualized DAP regions in hg38 using UCSC Genome Browser with track for ENCODE Candidate Cis-Regulatory Elements (cCREs across human cell types) 
+# Refer to Methods text for DAP region annotation - visualized DAP regions in hg38 using UCSC Genome Browser with track for ENCODE Candidate Cis-Regulatory Elements (cCREs across human cell types) 
 # chr1-235649534-235650662 # Centers around two promoter-like sequence elements (one CTCF-bound), contains partial ends of pELS elements (one CTCF-bound) 
 # chr1-235648709-235649522 # Centers around proximal enhancer-like sequence element (CTCF-bound), contains partial ends of two other pELS elements (one CTCF-bound)
 # chr1-235641919-235642869 # Centers around distal enhancer-like sequence element (CTCF-bound), contains another complete dELS, partial end of a third dELS
@@ -738,7 +739,7 @@ dev.off()
 # Paired t-test with two-stage step-up Benjamini, Krieger, and Yekutieli FDR correction for multiple comparisons, *Q < 0.05, **Q < 0.01
 # *Q and **Q symbols added in Illustrator
 
-# Gy4 GMFI values for each subset were analyzed and visualized in Prism, shown in Fig. S22E (tonsil) and S22F (PBMC)
+# Gy4 GMFI values for each subset were analyzed and visualized in Prism, shown in Fig. S13E (tonsil) and S13F (PBMC)
 
 # Fig 5H - GNG4 ATAC coverage plot for L4 GC vs nonGC-like Tfh groups, with rheumatoid arthritis fine-mapping GWAS variant positions annotated, GNG4 DAP regions highlighted, and co-accessible regions indicated by Cicero links ----
 
@@ -820,7 +821,7 @@ gng4_dap_gr$color <- c('darkgrey',rdbu_colors[3],'darkgrey','darkgrey','darkgrey
 # Fine-mapping GWAS results include set of variants mapped to GNG4 that are associated with RA diagnosis
 # Lead variant annotated as rs1188620266 (chr1:235800357:CAA:C) in original study
 # Due to changes in gnomAD versions since this study and our reanalysis, we have chosen to refer to this variant using the updated rs61512163 identifier (chr1:235637057:CAA:C), which we confirmed with the original study authors
-# Refer to Supplemental Materials and Data File S9 for additional GWAS and variant details
+# Refer to Methods text and Data File S9 for additional GWAS and variant details
 
 # rsIDs for GNG4 variants identified in RA GWAS, where available
 gng4_snps <- c(
@@ -906,7 +907,7 @@ dev.off()
 # .rds file obtained from Figure2 tab of https://cellpilot.emed.wustl.edu/
 covid_tcell_obj <- readRDS('/filepath/reanalysis/borcherding_mrna_vax/BorcherdingFig2.rds')
 
-# Refer to Fig S24 and related code in 'figS24_reanalysis_human_vaccination_scrnaseq_gng4_gctfh.R' for further annotation details of GC Tfh cluster
+# Refer to Fig S15 and related code in 'figS15_reanalysis_human_vaccination_scrnaseq_gng4_gctfh.R' for further annotation details of GC Tfh cluster
 
 # Author annotations list c3 as CD4+ GC Tfh - our reanalysis supports this annotation, as shown by dotplot below
 Idents(covid_tcell_obj) <- 'seurat_clusters' # pre-existing clusters c0-c11
@@ -1011,7 +1012,7 @@ flu_tfh_obj <- readRDS('/filepath/reanalysis/intergrated_Tfh_harmony_bydonor.rds
 
 # Note - as provided, the Level 1 T cell object does not have a specifically annotated 'GC Tfh' cluster, whereas the Level 2 Tfh subclustering object does ('GC')
 # Therefore, in steps below we examine expression of GNG4 and other GC-like Tfh features in both the L2 (S24D-F) and L1 objects (S24G-I), then map the 'GC' cluster from L2 to L1 (S24J-K)
-# Refer to Fig S24 and related code in 'figS24_reanalysis_human_vaccination_scrnaseq_gng4_gctfh.R' for further annotation details of GC Tfh cluster
+# Refer to Fig S15 and related code in 'figS15_reanalysis_human_vaccination_scrnaseq_gng4_gctfh.R' for further annotation details of GC Tfh cluster
 
 # Using Schattgen et al. annotations, label each cell in L2 Tfh subclustering object as GC Tfh 'yes' or 'no'
 table(flu_tfh_obj$Tfh_type) # annotations from authors

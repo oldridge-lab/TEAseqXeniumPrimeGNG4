@@ -161,6 +161,11 @@ FeaturePlot(l1_teaseq_obj, reduction = "umap.atac", label = TRUE, features = 'rn
 FeaturePlot(l1_teaseq_obj, reduction = "umap.atac", label = FALSE, features = 'percent.ribo', pt.size = 1, order = TRUE, cols = c('lightgrey','#7F1E2B')) + coord_fixed()
 FeaturePlot(l1_teaseq_obj, reduction = "umap.atac", label = FALSE, features = 'percent.mt', pt.size = 1, order = TRUE, cols = c('lightgrey','#7F1E2B')) + coord_fixed()
 
+# Adding metadata column to compare CD4+ SSC-low (CD4) versus all mononuclear (Bulk) sorted samples
+l1_teaseq_obj$cd4_vs_bulk <- ifelse(grepl("-CD4$", l1_teaseq_obj$hto.sort), "CD4-Enriched",
+                                    ifelse(grepl("-Bulk$", l1_teaseq_obj$hto.sort), "All Cells", NA))
+DimPlot(l1_teaseq_obj, reduction = "umap.atac", label = TRUE, group.by = 'cd4_vs_bulk', ncol = 2) + coord_fixed() + ggtitle('ATAC - Before Harmony')
+
 # 4) ATAC - Harmony integration ----
 DefaultAssay(l1_teaseq_obj) <- 'ATAC'
 l1_teaseq_obj <- RunHarmony(
@@ -366,7 +371,7 @@ l1_teaseq_obj <- IntegrateLayers(object = l1_teaseq_obj,
                                  seed = 26)
 l1_teaseq_obj <- FindNeighbors(l1_teaseq_obj, reduction = "pca.adt.harmony", dims = 1:50, assay = 'ADT',  graph.name = c('ADT_harmony_nn','ADT_harmony_snn'))
 l1_teaseq_obj <- RunUMAP(l1_teaseq_obj, dims = 1:50, reduction = "pca.adt.harmony", reduction.name = "umap.adt.harmony", reduction.key = "adtharmonyUMAP_", assay = 'ADT')
-l1_teaseq_obj <- FindClusters(l1_teaseq_obj, resolution = 0.25, cluster.name = "adt.bulk.cluster.harmony", assay = 'ADT', graph.name = 'ADT_harmony_snn')
+l1_teaseq_obj <- FindClusters(l1_teaseq_obj, resolution = 0.84, cluster.name = "adt.bulk.cluster.harmony", assay = 'ADT', graph.name = 'ADT_harmony_snn')
 Idents(l1_teaseq_obj) <- "adt.bulk.cluster.harmony"
 DimPlot(l1_teaseq_obj, reduction = "umap.adt.harmony", label = TRUE) + ggtitle('ADT - After Harmony') + coord_fixed()
 

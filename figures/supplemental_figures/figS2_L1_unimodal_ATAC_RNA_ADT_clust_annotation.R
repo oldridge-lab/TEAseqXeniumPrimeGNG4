@@ -1,7 +1,8 @@
-# Barnett Dubensky et al. 2025 bioRxiv
-# Multimodal analysis defines GNG4 as a distinguishing feature of germinal center-positioned CD4 T follicular helper cells in humans
-# Code and data visualization for Fig. S5
-# Fig. S5 - Separate unimodal analyses of trimodal TEAseq data identify shared and distinct immune cell states. 
+# Sam Barnett Dubensky et al.
+# Derek A. Oldridge & Laura A. Vella Labs at the Children's Hospital of Philadelphia
+# Multimodal analysis defines GNG4 as a distinguishing feature of germinal center-positioned Tfh in humans
+# Code and data visualization for Fig. S2 (related to Fig. 1)
+# Fig. S2 - Separate unimodal analyses of trimodal TEAseq data identify shared and distinct immune cell states, related to Figure 1
 
 # Set up working environment ----
 

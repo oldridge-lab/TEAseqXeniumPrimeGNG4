@@ -119,7 +119,7 @@ l2_xp_nncd4t_clust_res1_rna_deg <- FindAllMarkers(xp_nncd4t_obj, assay = 'RNA')
 
 # Annotate L2 nnCD4 T cell subclusters ----
 
-# Refer to Fig. 4J, Fig. S15, and Data File S4 for key DEGs, Fig. S16 for spatial distribution, and Supplementary Materials for references and additional discussion of rationale behind cluster annotations.
+# Refer to Fig. 4J, Fig. S7E, and Data File S4 for key DEGs, Fig. S8I-S8J for spatial distribution, and Methods text for rationale behind cluster annotations
 
 l2_nncd4t_annot <- c(
   '0'  = 'Tfh DZ',

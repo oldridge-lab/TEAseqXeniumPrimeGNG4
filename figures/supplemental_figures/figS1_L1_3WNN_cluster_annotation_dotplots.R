@@ -1,7 +1,8 @@
-# Barnett Dubensky et al. 2025 bioRxiv
-# Multimodal analysis defines GNG4 as a distinguishing feature of germinal center-positioned CD4 T follicular helper cells in humans
-# Code and data visualization for Fig. S2
-# Fig. S2 – Trimodal annotation of Level 1 mononuclear cell states in tonsil and peripheral blood TEAseq dataset
+# Sam Barnett Dubensky et al.
+# Derek A. Oldridge & Laura A. Vella Labs at the Children's Hospital of Philadelphia
+# Multimodal analysis defines GNG4 as a distinguishing feature of germinal center-positioned Tfh in humans
+# Code and data visualization for Fig. S2 (related to Fig 1.)
+# Fig. S2 – Cell sorting strategy and L1 3WNN annotation of tonsil and PBMC subsets in TEAseq experiment, related to Figure 1
 
 # Set up working environment ----
 
@@ -88,6 +89,12 @@ library(ggnewscale) # 0.5.0
 library(ggVennDiagram) # 1.5.2
 library(biomaRt) # 2.60.0
 library(writexl) # 1.5.4
+
+# Fig. S1A-S1D - Representative gating strategies for paired FACS isolation of mononuclear cells and CD4+ SSC-low mononuclear cells from each sample
+
+# PDF exported from SpectroFlo
+
+# Fig. S1E-S1G - 3WNN L1 cluster annotation dotplots for ATAC, RNA, and ADT modalities
 
 # Import Seurat object from TEAseq Data Preprocessing Step 13 (trimodal dimensionality reduction and L1 3WNN clustering of all tonsil and peripheral blood mononuclear cells, including Harmony integration across donors ----
 l1_teaseq_obj <- readRDS('/filepath/step13_bulk_harmony/l1_teaseq_obj.rds')

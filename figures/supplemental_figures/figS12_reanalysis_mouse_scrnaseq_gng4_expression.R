@@ -1,7 +1,8 @@
-# Barnett Dubensky et al. 2025 bioRxiv
-# Multimodal analysis defines GNG4 as a distinguishing feature of germinal center-positioned CD4 T follicular helper cells in humans
-# Code for Fig. S21, panels F & G
-# Fig. S21 - Sparse Gng4 RNA expression in T cells from C57BL/6J laboratory mice across diverse health and disease states.
+# Sam Barnett Dubensky et al.
+# Derek A. Oldridge & Laura A. Vella Labs at the Children's Hospital of Philadelphia
+# Multimodal analysis defines GNG4 as a distinguishing feature of germinal center-positioned Tfh in humans
+# Code for Fig. S12F-S12G (related to Fig. 5)
+# Fig. S12 - Sparse Gng4 RNA expression in T cells from C57BL/6J laboratory mice across diverse health and disease states, related to Figure 5
 
 # Set up R working environment ----
 
@@ -91,7 +92,7 @@ library(UCell) # 2.8.0
 library(scales) # 1.3.0
 library(rlang) # 1.1.4
 
-# Fig S21F - LCMV-specific CD4 T cells in spleen from both acute and chronic LCMV models in C57BL/6J mice ----
+# Fig S12F - LCMV-specific CD4 T cells in spleen from both acute and chronic LCMV models in C57BL/6J mice ----
 
 # Reanalysis of Andreatta et al. A CD4+ T cell reference map delineates subtype-specific adaptation during acute and chronic viral infections. eLife. 2022. PMID 35829695. https://pubmed.ncbi.nlm.nih.gov/35829695/
 # Seurat object ('ref_LCMV_CD4_mouse_release_v1.rds') obtained from Swiss Portal for Immune Cell Analysis via figshare - https://doi.org/10.6084/m9.figshare.16592693.v1
@@ -154,9 +155,9 @@ colnames(tfh_eff_vs_nontfh_deg_save) <- c(
 tfh_eff_vs_nontfh_deg_save <- tfh_eff_vs_nontfh_deg_save %>% arrange(p_val_adj)
 write_xlsx(tfh_eff_vs_nontfh_deg_save, path = '/filepath/fig5/fig5_supp/mouse_tfheff_vs_nontfh_deg.xlsx')
 
-# UMAP shown in Fig S21F is from SPICA visualization portal
+# UMAP shown in Fig S12F is from SPICA visualization portal
 
-# Fig S21G - Tumor-infiltrating lymphocyte (TIL) subsets from both B16 and MC38 tumor models in C57BL/6J mice ----
+# Fig S12G - Tumor-infiltrating lymphocyte (TIL) subsets from both B16 and MC38 tumor models in C57BL/6J mice ----
 
 # Reanalysis of Andreatta et al. Interpretation of T cell states from single-cell transcriptomics data using reference atlases. 2021. Nat Commun. PMID 34017005. https://pubmed.ncbi.nlm.nih.gov/34017005/
 # Seurat object ('ref_TILAtlas_mouse_v1.rds') obtained from Swiss Portal for Immune Cell Analysis via figshare - https://doi.org/10.6084/m9.figshare.12478571.v3
@@ -177,6 +178,6 @@ Idents(mouse_til_obj) <- 'gng4_rna_class'
 table(mouse_til_obj$gng4_rna_class, mouse_til_obj$functional.cluster)
 # Only 1/1043 Tfh are Gng4 RNA+ - very sparse expression, not enriched - other clusters also very sparse
 
-# UMAP shown in Fig S21G is from SPICA visualization portal
+# UMAP shown in Fig S12G is from SPICA visualization portal
 
-# No differential expression testing performed for panels A-E of Fig. S21, where Gng4 RNA expression was essentially absent in all T cell clusters
+# No differential expression testing performed for panels A-E of Fig. S12, where Gng4 RNA expression was essentially absent in all T cell clusters

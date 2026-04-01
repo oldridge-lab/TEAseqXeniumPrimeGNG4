@@ -1,5 +1,6 @@
-# Barnett Dubensky et al. 2025 bioRxiv
-# Multimodal analysis defines GNG4 as a distinguishing feature of germinal center-positioned CD4 T follicular helper cells in humans
+# Sam Barnett Dubensky et al.
+# Derek A. Oldridge & Laura A. Vella Labs at the Children's Hospital of Philadelphia
+# Multimodal analysis defines GNG4 as a distinguishing feature of germinal center-positioned Tfh in humans
 # Code and data visualization for Fig. 4
 # Figure 4 - GNG4+ Tfh are primarily positioned within the germinal center light zone
 
@@ -238,7 +239,7 @@ xp_l1_annot <- c(
   '25' = 'Mast' # Separate granulocyte cluster from 'Gran' with mast cell signature
 )
 
-# For data and rationale supporting cluster annotations, refer to Fig. S14 and Data File S4 for key DEGs, Fig. S16 for spatial distribution, and Supplementary Materials for references and discussion
+# For data and rationale supporting cluster annotations, refer to Fig. S7 and Data File S4 for key DEGs, Fig. S8 for spatial distribution, and Methods text
 
 # Apply L1 annotations to full object
 DefaultAssay(xp.obj) <- 'RNA'
@@ -277,7 +278,7 @@ l2_nncd4t_annot <- c(
   '15' = 'Tfh PRDM1'
 )
 
-# Refer to Fig. 4J, Fig. S15, and Data File S4 for key DEGs, Fig. S16 for spatial distribution, and Supplementary Materials for references and additional discussion of rationale behind cluster annotations.
+# Refer to Fig. 4J, Fig. S7, and Data File S4 for key DEGs, Fig. S8 for spatial distribution, and Methods text for rationale behind cluster annotations.
 
 # UMAP for XP L2 nnCD4 T cell subclusters with offset cluster labels
 Idents(xp_nncd4t_obj) <- 'l2_nncd4t_annot'
@@ -513,7 +514,7 @@ ggsave("/filepath/fig4/fig4j/xp_l2_annot_dotplot_axes_top.pdf",
 # Code adapted from related GitHub page - https://github.com/nolanlab/NeighborhoodCoordination
 # CN generation for tonsil Xenium Prime dataset was performed in collaboration with Yutong Zhu from Oldridge Lab.
 # For details regarding CN generation refer to Python notebooks in the Xenium Data Processing Step 9 folder.
-# CNs were annotated as detailed in Xenium Data Processing Step 10 and Fig. S16 code.
+# CNs were annotated as detailed in Xenium Data Processing Step 10 and Fig. S8 code.
 
 # Panel 4K shows a representative image of cells in tonsil colored by assigned CN using sample TC653B.
 

@@ -1,7 +1,8 @@
-# Barnett Dubensky et al. 2025 bioRxiv
-# Multimodal analysis defines GNG4 as a distinguishing feature of germinal center-positioned CD4 T follicular helper cells in humans
-# Code and data visualization for Fig. S16
-# Fig. S16 – Immune and non-immune cell types form diverse cellular neighborhoods in tonsils with distinct CD4 T cell subset composition.
+# Sam Barnett Dubensky et al.
+# Derek A. Oldridge & Laura A. Vella Labs at the Children's Hospital of Philadelphia
+# Multimodal analysis defines GNG4 as a distinguishing feature of germinal center-positioned Tfh in humans
+# Code and data visualization for Fig. S8 (related to Fig. 4)
+# Fig. S8 – Immune and non-immune cell types form diverse cellular neighborhoods in tonsils with distinct CD4 T cell subset composition, related to Figure 4
 
 # Cell neighborhood (CN) analysis used L1 cluster annotations as input (not L2 T cell subclusters), k = 40 neighbors, and n = 10 neighborhoods
 # Original method from Schürch, Christian M. et al. Coordinated Cellular Neighborhoods Orchestrate Antitumoral Immunity at the Colorectal Cancer Invasive Front. Cell, Volume 182, Issue 5, 1341 - 1359.e19
@@ -53,7 +54,11 @@ xp.obj <- readRDS(file = '/filepath/xenium_data_processing/step10_cell_neighborh
 # L2 object - nnCD4 T cells, 16 total subclusters of L1 nnCD4 cluster
 xp_nncd4t_obj <- readRDS(file = '/filepath/xenium_data_processing/step10_cell_neighborhood_annotation/xp_l2_nncd4t_obj_step10.rds')
 
-# Fig. S16G - Heatmap for L1 cluster enrichment across CNs (initial CN analysis version) ----
+# Fig. S8A-S8F - H&E, DAPI, and CN images ----
+
+# Images exported from Xenium Explorer (v3.2.0)
+
+# Fig. S8G - Heatmap for L1 cluster enrichment across CNs (initial CN analysis version) ----
 
 # Create matrix of L1 cluster cell counts per CN
 xp_l1l2clust_cn_df <- xp.obj@meta.data %>%
@@ -106,7 +111,7 @@ cn_orig_l1_clust_distr_heatmap <- pheatmap(
 cn_orig_l1_clust_distr_heatmap
 dev.off()
 
-# Fig. S16H - Heatmap for L1 cluster enrichment across CNs (merged GC CN analysis version) ----
+# Fig. S8H - Heatmap for L1 cluster enrichment across CNs (merged GC CN analysis version) ----
 
 # Create matrix of L1 cluster cell counts per CN
 xp_l1l2clust_cn_df <- xp.obj@meta.data %>%
@@ -158,7 +163,7 @@ cn_orig_l1_clust_distr_heatmap <- pheatmap(
 cn_orig_l1_clust_distr_heatmap
 dev.off()
 
-# Fig. S16I - Heatmap for L2 nnCD4 T cell subcluster enrichment across CNs (initial CN analysis version) ----
+# Fig. S8I - Heatmap for L2 nnCD4 T cell subcluster enrichment across CNs (initial CN analysis version) ----
 
 # Create matrix of L2 cluster cell counts per CN
 xp_l1l2clust_cn_df <- xp_nncd4t_obj@meta.data %>%
@@ -211,7 +216,7 @@ cn_orig_l1_clust_distr_heatmap <- pheatmap(
 cn_orig_l1_clust_distr_heatmap
 dev.off()
 
-# Fig. S16J - Heatmap for L2 nnCD4 T cell subcluster enrichment across CNs (merged GC CN analysis version) ----
+# Fig. S8J - Heatmap for L2 nnCD4 T cell subcluster enrichment across CNs (merged GC CN analysis version) ----
 
 # Create matrix of L2 cluster cell counts per CN
 xp_l1l2clust_cn_df <- xp_nncd4t_obj@meta.data %>%

@@ -1,7 +1,8 @@
-# Barnett Dubensky et al. 2025 bioRxiv
-# Multimodal analysis defines GNG4 as a distinguishing feature of germinal center-positioned CD4 T follicular helper cells in humans
+# Sam Barnett Dubensky et al.
+# Derek A. Oldridge & Laura A. Vella Labs at the Children's Hospital of Philadelphia
+# Multimodal analysis defines GNG4 as a distinguishing feature of germinal center-positioned Tfh in humans
 # Code and data visualization for Fig. 1
-# Fig. 1 - Trimodal analysis resolves distinct Tfh-like states among tonsil and peripheral blood mononuclear cells.
+# Figure 1 - Trimodal analysis resolves distinct Tfh-like states among tonsil and peripheral blood mononuclear cells
 
 # Set up working environment ----
 
@@ -335,7 +336,7 @@ py_version() # 3.9
 pkg_res <- import("pkg_resources", convert = FALSE)
 pkg_res$get_distribution("scikit-learn")$version # 1.6.1
 
-# Get numerical cluster assignments (refer to 'figS5_L1_unimodal_ATAC_RNA_ADT_clust_annotation.R' for full clustering information)
+# Get numerical cluster assignments (refer to 'figS2_L1_unimodal_ATAC_RNA_ADT_clust_annotation.R' for full clustering information)
 cluster_numb_RNA <- l1_teaseq_obj$rna.bulk.cluster.harmony
 cluster_numb_ADT <- l1_teaseq_obj$adt.bulk.cluster.harmony
 cluster_numb_ATAC <- l1_teaseq_obj$atac.bulk.cluster.harmony

@@ -1,7 +1,8 @@
-# Barnett Dubensky et al. 2025 bioRxiv
-# Multimodal analysis defines GNG4 as a distinguishing feature of germinal center-positioned CD4 T follicular helper cells in humans
-# Code and data visualization for Fig. S8
-# Fig. S8 - Trimodal annotation of Level 3 Tfh versus Tcm states within TEAseq dataset.
+# Sam Barnett Dubensky et al.
+# Derek A. Oldridge & Laura A. Vella Labs at the Children's Hospital of Philadelphia
+# Multimodal analysis defines GNG4 as a distinguishing feature of germinal center-positioned Tfh in humans
+# Code and data visualization for Fig. S4 (related to Fig. 2)
+# Fig. S4 - Trimodal annotation and transcription factor activity inference for TEAseq 3WNN L3 Tfh-like subclusters, related to Figure 2
 
 # Set up working environment ----
 
@@ -232,4 +233,145 @@ wnn_tfh_clust_marker_dotplot_adt$data$features.plot <- factor(
 wnn_tfh_clust_marker_dotplot_adt
 pdf("/filepath/fig2/fig2_supp/wnn_tfh_clust_marker_dotplot_adt.pdf", width = 17, height = 3.75)
 wnn_tfh_clust_marker_dotplot_adt
+dev.off()
+
+# D) Heatmap of SCENIC regulon AUC scores scaled across L3 Tfh-like clusters ----
+setwd('/filepath/l3_tfh_scenic_output_folder/')
+tfh_scenicOptions <- readRDS("/filepath/l3_tfh_scenic_output_folder/scenicOptions4.rds") # complete run through binarization step
+tfh_regulonAUC <- loadInt(tfh_scenicOptions, "aucell_regulonAUC") # load AUC regulon matrix
+tfh_AUCmatrix <- getAUC(tfh_regulonAUC) # retrieve AUC values
+tfh_cellInfo <- tfh_scenicOptions@inputDatasetInfo$cellInfo # retrieve cell metadata - note SCENIC was run with preliminary cluster annotations that we later updated in final Preprocessing Step 15 code
+
+# Scaled regulon activity by cluster (all regulons) - duplicates filtered
+tfh_regulonAUC_filt <- tfh_regulonAUC[onlyNonDuplicatedExtended(rownames(tfh_regulonAUC)),] # removed 64 duplicated rownames - function 'returns the regulon names filtering-out the "extended" regulons if there is a regulon based on high-confidence annotations'
+tfh_clust_regulonActivity <- sapply(split(rownames(tfh_cellInfo), tfh_cellInfo$tfh_wnn_annot),
+                                    function(cells) rowMeans(getAUC(tfh_regulonAUC_filt)[,cells]))
+tfh_clust_regulonActivity_scaled <- t(scale(t(tfh_clust_regulonActivity), center = T, scale=T))
+
+# Set colors palette
+puor_colors <- brewer.pal(11, "PuOr")
+tfh_scenic_heatmap_min_val <- min(tfh_clust_regulonActivity_scaled, na.rm = TRUE)
+tfh_scenic_heatmap_max_val <- max(tfh_clust_regulonActivity_scaled, na.rm = TRUE)
+tfh_scenic_heatmap_hi_col  <- brewer.pal(11, "PuOr")[2]
+tfh_scenic_heatmap_lo_col <- brewer.pal(11, "PuOr")[10]
+tfh_scenic_heatmap_cols  <- colorRamp2(c(tfh_scenic_heatmap_min_val, 0, tfh_scenic_heatmap_max_val),
+                                       c(tfh_scenic_heatmap_lo_col, "white", tfh_scenic_heatmap_hi_col))
+
+# Set cluster order for heatmap
+wnn_tfh_heatmap_order <- c("Tcm", "Tfh-Circ", "Tfh-AP1", "Tfh-Resting", "Tfh-IL10", "Tfh-Int", "Tfh-NFATC1","Tfh-CXCL13", "Tfh-BOB1")
+tfh_clust_regulonActivity_scaled <- tfh_clust_regulonActivity_scaled[, wnn_tfh_heatmap_order]
+
+# Get activity of top regulons per cluster
+topRegulators <- melt(tfh_clust_regulonActivity_scaled)
+colnames(topRegulators) <- c("Regulon", "tfh_subset", "RelativeActivity")
+topRegulators <- topRegulators %>% # filter for top five active regulons
+  filter(RelativeActivity > 0.5) %>%
+  group_by(tfh_subset) %>%
+  slice_max(order_by = RelativeActivity, n = 9) %>%
+  ungroup()
+topRegulonNames <- unique(topRegulators$Regulon) # get union of regulons selected across clusters
+regulonActivity_top <- tfh_clust_regulonActivity_scaled[rownames(tfh_clust_regulonActivity_scaled) %in% topRegulonNames, ] # subset original scaled matrix to include only top regulons
+
+# Trim regulon names to TF root for visualization
+rownames(regulonActivity_top) <- ifelse(
+  grepl("_extended", rownames(regulonActivity_top)),
+  sub("_extended.*", "", rownames(regulonActivity_top)),          
+  sub(" .*", "", rownames(regulonActivity_top))                     
+)
+
+# Assemble SCENIC heatmap
+pdf('/filepath/fig2/fig2_supp/tfh_scenic_chromvar_heatmaps/tfh_scenic_supplement_heatmap_test.pdf', width = 20, height = 5.75)
+draw(Heatmap(
+  t(regulonActivity_top),
+  name = NULL,                          
+  col = tfh_scenic_heatmap_cols,                         
+  show_row_dend = TRUE,
+  cluster_rows = TRUE,
+  cluster_columns = TRUE,
+  show_column_dend = TRUE,
+  show_row_names = TRUE,
+  column_names_rot = 45, 
+  column_names_gp = gpar(fontsize = 12, fontfamily = "sans"),
+  row_names_side = 'left',
+  row_names_gp = gpar(fontsize = 15, fontfamily = "sans"),
+  show_column_names = TRUE,
+  heatmap_legend_param = list(
+    title = NULL,
+    legend_direction = "horizontal",
+    legend_width = unit(4, "cm"),
+    labels_gp = gpar(fontsize = 12, fontfamily = "sans"))
+), heatmap_legend_side = "bottom", annotation_legend_side = "bottom")
+dev.off()
+
+# E) Heatmap of chromVAR TF motif accessibility deviation scores scaled across L3 Tfh-like clusters (ATAC-based inference) ----
+
+# Select chromVAR TF of interest enriched in any cluster from FindAllMarkers analysis with pvaladj < 0.05
+l3_chromvar_heatmap_tf_list <- c('HIF1A','CTCF','YY1','RFX5','GLIS3','E2F2','VEZF1', # Tcm
+                                 'RFX2','RFX7','Klf1', # Tfh-Circ
+                                 'ELK1','SP1','KLF2','KLF3','SP3','KLF14','FEV','ETV3', # Tfh-AP1
+                                 'SP4','KLF6','ETV2','KLF13','GABPA','STAT1','Klf12','ERF', # Tfh-Resting
+                                 'IRF9','IRF4','MAFK','NFE2L1','IRF8','STAT3', # Tfh-IL10
+                                 'NR3C2','NR3C1','Ar','POU5F1B','POU3F4','ZSCAN4','REL','ZBTB32', # Tfh-Int
+                                 'NFATC3','NFATC1','NFATC4','NFAT5','NFATC2', # Tfh-NFATC1
+                                 'BATF3','BATF','BACH1','JUNB','JDP2','CEBPA','BACH2','FOSL1','FOSL2', # Tfh-CXCL13
+                                 'POU5F1','POU2F3','Ascl2','MYOG','Tcf12','MAF','IKZF1','ASCL1','ZBTB18' # Tfh-BOB1
+)
+tfh_chromvar_mtx_full <- GetAssayData(l3_teaseq_tfh_obj, assay = 'chromvar', slot = "data")
+
+# Map chromVAR motif names to TF names for heatmap visualization
+pfm <- getMatrixSet( 
+  x = JASPAR2020, # get TF motif PFM information
+  opts = list(collection = "CORE", tax_group = 'vertebrates', all_versions = FALSE)
+)
+id_to_tf <- sapply(pfm, function(x) name(x))
+names(id_to_tf) <- sapply(pfm, ID)
+rn_tfh_chromvar <- rownames(tfh_chromvar_mtx_full)
+rn_tfh_chromvar_tfname <- id_to_tf[rn_tfh_chromvar]
+rownames(tfh_chromvar_mtx_full) <- rn_tfh_chromvar_tfname
+
+# Prepare heatmap data matrix
+chromvar_tf_list <- intersect(rownames(tfh_chromvar_mtx_full), l3_chromvar_heatmap_tf_list) # subset matrix to enriched TF of interest
+tfh_chromvar_mtx <- as.matrix(tfh_chromvar_mtx_full[chromvar_tf_list, , drop = FALSE])  # features x cells
+dim(tfh_chromvar_mtx)
+tfh_idents <- Idents(l3_teaseq_tfh_obj)
+tfh_ident_levels <- levels(tfh_idents)
+tfh_chromvar_mtx_by_cluster <- sapply(tfh_ident_levels, function(k) {
+  idx <- which(tfh_idents == k)
+  rowMeans(tfh_chromvar_mtx[, idx, drop = FALSE], na.rm = TRUE)
+})
+tfh_chromvar_mtx_t <- t(tfh_chromvar_mtx_by_cluster) # transpose matrix to be clusters x TF names
+colnames(tfh_chromvar_mtx_t) <- rownames(tfh_chromvar_mtx)
+rownames(tfh_chromvar_mtx_t) <- tfh_ident_levels
+tfh_chromvar_mtx_scaled <- as.matrix(t(scale(t(tfh_chromvar_mtx_t), center = TRUE, scale = TRUE)))
+
+# Set colors
+tfh_chromvar_heatmap_min_val <- min(tfh_chromvar_mtx_scaled, na.rm = TRUE)
+tfh_chromvar_heatmap_max_val <- max(tfh_chromvar_mtx_scaled, na.rm = TRUE)
+tfh_chromvar_heatmap_hi_col  <- brewer.pal(11, "PuOr")[2]
+tfh_chromvar_heatmap_lo_col <- brewer.pal(11, "PuOr")[10]
+tfh_chromvar_heatmap_cols  <- colorRamp2(c(tfh_chromvar_heatmap_min_val, 0, tfh_chromvar_heatmap_max_val),
+                                         c(tfh_chromvar_heatmap_lo_col, "white", tfh_chromvar_heatmap_hi_col))
+
+# Assemble chromVAR TF heatmap
+pdf('/filepath/fig2/fig2_supp/tfh_scenic_chromvar_heatmaps/tfh_chromvar_supplement_heatmap.pdf', width = 16, height = 5.75)
+draw(Heatmap(
+  tfh_chromvar_mtx_scaled,
+  name = NULL,                          
+  col = tfh_chromvar_heatmap_cols,                         
+  show_row_dend = TRUE,
+  cluster_rows = TRUE,
+  cluster_columns = TRUE,
+  show_column_dend = TRUE,
+  show_row_names = TRUE,
+  column_names_rot = 45, 
+  column_names_gp = gpar(fontsize = 12, fontfamily = "sans"),
+  row_names_side = 'left',
+  row_names_gp = gpar(fontsize = 15, fontfamily = "sans"),
+  show_column_names = TRUE,
+  heatmap_legend_param = list(
+    title = NULL,
+    legend_direction = "horizontal",
+    legend_width = unit(4, "cm"),
+    labels_gp = gpar(fontsize = 12, fontfamily = "sans"))
+), heatmap_legend_side = "bottom", annotation_legend_side = "bottom")
 dev.off()
