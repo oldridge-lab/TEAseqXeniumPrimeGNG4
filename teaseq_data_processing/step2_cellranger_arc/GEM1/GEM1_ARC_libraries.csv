@@ -1,0 +1,7 @@
+fastqs,sample,library_type
+/sp_flowcell_filepath/GEX_1,GEX_1,Gene Expression
+/s2_flowcell_filepath/GEX_1,GEX_1,Gene Expression
+/s4_flowcell_filepath/ATAC_1,ATAC_1_a,Chromatin Accessibility
+/s4_flowcell_filepath/ATAC_1,ATAC_1_b,Chromatin Accessibility
+/s4_flowcell_filepath/ATAC_1,ATAC_1_c,Chromatin Accessibility
+/s4_flowcell_filepath/ATAC_1,ATAC_1_d,Chromatin Accessibility
