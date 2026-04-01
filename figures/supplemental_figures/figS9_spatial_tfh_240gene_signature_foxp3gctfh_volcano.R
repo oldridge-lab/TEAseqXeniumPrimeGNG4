@@ -2,7 +2,7 @@
 # Derek A. Oldridge & Laura A. Vella Labs at the Children's Hospital of Philadelphia
 # Multimodal analysis defines GNG4 as a distinguishing feature of germinal center-positioned Tfh in humans
 # Code and data visualization for Fig. S9 (related to Fig. 4)
-# Fig. S9 - Derivation of spatially resolved GC Th signature and differential gene expression in FOXP3+ GC Th subset, related to Figure 4
+# Fig. S9 - Derivation of spatially resolved GC Tfh signature and differential gene expression in FOXP3+ GC Th subset, related to Figure 4
 
 # Set up R working environment ----
 
