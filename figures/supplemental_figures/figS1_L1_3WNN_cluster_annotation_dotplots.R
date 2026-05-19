@@ -1,8 +1,8 @@
 # Sam Barnett Dubensky et al.
 # Derek A. Oldridge & Laura A. Vella Labs at the Children's Hospital of Philadelphia
-# Multimodal analysis defines GNG4 as a distinguishing feature of germinal center-positioned Tfh in humans
-# Code and data visualization for Fig. S2 (related to Fig. 1)
-# Fig. S2 – Cell sorting strategy and L1 3WNN annotation of tonsil and PBMC subsets in TEAseq experiment, related to Figure 1
+# Multimodal analysis defines GNG4 as a distinguishing feature of germinal center-positioned Tfh in human lymphoid tissue
+# Code and data visualization for Fig. S1 (related to Fig. 1)
+# Fig. S1 – Cell sorting strategy and L1 3WNN annotation of tonsil and PBMC subsets in TEAseq experiment, related to Figure 1
 
 # Set up working environment ----
 
@@ -133,7 +133,7 @@ l1_wnn_clust_marker_dotplot_atac <- DotPlot(l1_teaseq_obj, features = wnn_clust_
     high = puor_colors[2], # Orange
     midpoint = 0 # White at zero
   )
-pdf("/filepath/fig1/fig1_supp/l1_wnn_clust_marker_dotplot_atac.pdf", width = 14, height = 5)
+pdf("/filepath/fig1/fig1_supp/l1_wnn_clust_marker_dotplot_atac.pdf", width = 18, height = 5)
 l1_wnn_clust_marker_dotplot_atac
 dev.off()
 
@@ -160,7 +160,7 @@ l1_wnn_clust_marker_dotplot_rna <- DotPlot(l1_teaseq_obj, features = wnn_clust_d
     high = puor_colors[2], # Orange
     midpoint = 0 # White at zero
   )
-pdf("/filepath/fig1/fig1_supp/l1_wnn_clust_marker_dotplot_rna.pdf", width = 14, height = 5)
+pdf("/filepath/fig1/fig1_supp/l1_wnn_clust_marker_dotplot_rna.pdf", width = 18, height = 5)
 l1_wnn_clust_marker_dotplot_rna
 dev.off()
 
@@ -193,6 +193,6 @@ l1_wnn_clust_marker_dotplot_adt$data$features.plot <- factor(
   levels = wnn_clust_dotplot_features_adt,
   labels = wnn_clust_dotplot_features_adt_trim_prefix
 )
-pdf("/filepath/fig1/fig1_supp/l1_wnn_clust_marker_dotplot_adt.pdf", width = 14, height = 5)
+pdf("/filepath/fig1/fig1_supp/l1_wnn_clust_marker_dotplot_adt.pdf", width = 18, height = 5)
 l1_wnn_clust_marker_dotplot_adt
 dev.off()

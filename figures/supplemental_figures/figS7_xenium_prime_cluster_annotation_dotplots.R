@@ -1,6 +1,6 @@
 # Sam Barnett Dubensky et al.
 # Derek A. Oldridge & Laura A. Vella Labs at the Children's Hospital of Philadelphia
-# Multimodal analysis defines GNG4 as a distinguishing feature of germinal center-positioned Tfh in humans
+# Multimodal analysis defines GNG4 as a distinguishing feature of germinal center-positioned Tfh in human lymphoid tissue
 # Code and data visualization for Fig. S7 (related to Fig. 4)
 # Fig. S7 - Whole slide image coregistration and annotation of single-cell transcriptional clusters in tonsil Xenium Prime dataset, related to Figure 4
 
@@ -31,7 +31,7 @@ library(BPCells) # 0.3.0
 library(tibble) # 3.2.1
 library(purrr) # 1.0.2
 library(circlize) # 0.4.16
-library(writexl) # 1.5.40
+library(writexl) # 1.5.4
 library(ggnewscale) # 0.5.0
 library(readxl) # 1.4.3
 library(openxlsx) # 4.2.8

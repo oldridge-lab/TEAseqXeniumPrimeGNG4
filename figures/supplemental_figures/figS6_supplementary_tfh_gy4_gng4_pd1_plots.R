@@ -1,8 +1,8 @@
 # Sam Barnett Dubensky et al.
 # Derek A. Oldridge & Laura A. Vella Labs at the Children's Hospital of Philadelphia
-# Multimodal analysis defines GNG4 as a distinguishing feature of germinal center-positioned Tfh in humans
+# Multimodal analysis defines GNG4 as a distinguishing feature of germinal center-positioned Tfh in human lymphoid tissue
 # Code and data visualization for indicated panels of Fig. S6 (related to Fig. 3)
-# Fig. S6 - GGating strategy and quantification of Gγ4 protein and GNG4 RNA expression in human CD4 T cells, related to Figure 3
+# Fig. S6 - Gating strategy and quantification of Gγ4 protein and GNG4 RNA expression in human CD4 T cells, related to Figure 3
 
 # Set up working environment ----
 
@@ -100,9 +100,9 @@ l3_teaseq_tfh_obj <- readRDS('/filepath/step15_tfh_subcluster/l3_teaseq_tfh_obj.
 # Filter Tcm from L3 object to create Tfh-only L4 object ----
 l4_teaseq_tfh_no_tcm_obj <- subset(l3_teaseq_tfh_obj, tfh_wnn_annot != 'Tcm')
 
-# Fig S6B & S6D, supplement to Fig. 3J -  Gy4 GMFI in Tfh subsets vs nonTfh and Naive cells ----
+# Fig S6B & S6D, supplement to Fig. 3J -  Gγ4 GMFI in Tfh subsets vs nonTfh and Naive cells ----
 
-# Tfh Subsets Gy4 GMFI Barplot
+# Tfh Subsets Gγ4 GMFI Barplot
 tfh_gng4_flow_df <- read_excel("/filepath/fig3/fig3_flow_data.xlsx", sheet = "Gy4_GMFI")
 
 tonsil_barplot_cols <- c(
@@ -136,7 +136,7 @@ tfh_gng4_flow_df_long <- tfh_gng4_flow_df_long %>%
     )
   )
 
-# Tonsil sample Gy4 GMFI barplot with 95% confidence intervals
+# Tonsil sample Gγ4 GMFI barplot with 95% confidence intervals
 tfh_gng4_flow_df_ton <- tfh_gng4_flow_df_long %>% subset(Tissue == 'Tonsil')
 ton_tfh_gy4_gmfi_barplot <- ggplot(tfh_gng4_flow_df_ton, aes(x = Subset, y = GMFI, fill = Subset)) +
   stat_summary(
@@ -177,7 +177,7 @@ pdf('/filepath/fig3/fig3_supp/ton_tfh_gy4_gmfi_barplot.pdf', width = 5, height =
 ton_tfh_gy4_gmfi_barplot
 dev.off()
 
-# PBMC sample Gy4 GMFI barplot with 95% confidence intervals
+# PBMC sample Gγ4 GMFI barplot with 95% confidence intervals
 tfh_gng4_flow_df_pbmc <- tfh_gng4_flow_df_long %>% subset(Tissue == 'PBMC')
 pbmc_tfh_gy4_gmfi_barplot <- ggplot(tfh_gng4_flow_df_pbmc, aes(x = Subset, y = GMFI, fill = Subset)) +
   stat_summary(
@@ -218,7 +218,7 @@ pdf('/filepath/fig3/fig3_supp/pbmc_tfh_gy4_gmfi_barplot.pdf', width = 5, height 
 pbmc_tfh_gy4_gmfi_barplot
 dev.off()
 
-# Data file S10 - 95% confidence interval calculations for Gy4 percentage and GMFI values in Tfh versus nonTfh subsets of interest ----
+# Data file S10 - 95% confidence interval calculations for Gγ4 percentage and GMFI values in Tfh versus nonTfh subsets of interest ----
 
 # Select sheets from raw flow data spreadsheet
 xlsx_path <- "/filepath/fig3/fig3_flow_data.xlsx"

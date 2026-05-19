@@ -1,7 +1,7 @@
 # Sam Barnett Dubensky et al.
 # Derek A. Oldridge & Laura A. Vella Labs at the Children's Hospital of Philadelphia
-# Multimodal analysis defines GNG4 as a distinguishing feature of germinal center-positioned Tfh in humans
-# Code and data visualization for Fig. S3 (related to Fig. 1)
+# Multimodal analysis defines GNG4 as a distinguishing feature of germinal center-positioned Tfh in human lymphoid tissue
+# Code and data visualization for Fig. S3 (related to Fig. 1H-1J)
 # Fig. S3 - Tfh adopt distinct states in tonsil and peripheral blood unified by a set of multimodal gene expression features, related to Figure 1
 
 # Set up working environment ----
@@ -618,7 +618,7 @@ Idents(l2_teaseq_tcell_obj) <- 'tfh_clust_vs_nontfh_group'
 DefaultAssay(l2_teaseq_tcell_obj) <- 'ATAC'
 l2_tfh_vs_nontfh_atac_markers <- FindAllMarkers(l2_teaseq_tcell_obj, assay = 'ATAC', logfc.threshold = 0, min.pct = 0)
 
-# FIltering for peaks enriched in each group with Bonferroni-adjusted Wilcoxon P < 0.05
+# Filtering for peaks enriched in each group with Bonferroni-adjusted Wilcoxon P < 0.05
 ctfh_daps <- l2_tfh_vs_nontfh_atac_markers %>% filter(cluster == 'CD4 Tcm/fh') %>% filter(avg_log2FC > 0) %>% filter(p_val_adj < 0.05) 
 il10tfh_daps <- l2_tfh_vs_nontfh_atac_markers %>% filter(cluster == 'Tfh IL10') %>% filter(avg_log2FC > 0) %>% filter(p_val_adj < 0.05) 
 gctfh_daps <- l2_tfh_vs_nontfh_atac_markers %>% filter(cluster == 'Tfh GC') %>% filter(avg_log2FC > 0) %>% filter(p_val_adj < 0.05)
@@ -732,7 +732,7 @@ genes_in_daps_not_degs <- as.data.frame(setdiff(daps_genes, degs_genes))
 dim(genes_in_daps_not_degs) # 255 total
 write_xlsx(genes_in_daps_not_degs, '/filepath/fig1/fig1_supp/l2_tcell_tfh_core_dap_deg/core_tfh_genes_in_daps_not_degs.xlsx')
 
-# Venn diagram visualization of overlaping core ATAC versus RNA features of L2 Tfh-like cells ----
+# Venn diagram visualization of overlapping core ATAC versus RNA features of L2 Tfh-like cells ----
 
 # Create Venn diagram without labels - added manually in Illustrator
 venn_list <- setNames(list(daps_genes, degs_genes), c("", ""))

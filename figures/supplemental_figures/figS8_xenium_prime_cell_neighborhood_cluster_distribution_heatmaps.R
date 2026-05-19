@@ -1,6 +1,6 @@
 # Sam Barnett Dubensky et al.
 # Derek A. Oldridge & Laura A. Vella Labs at the Children's Hospital of Philadelphia
-# Multimodal analysis defines GNG4 as a distinguishing feature of germinal center-positioned Tfh in humans
+# Multimodal analysis defines GNG4 as a distinguishing feature of germinal center-positioned Tfh in human lymphoid tissue
 # Code and data visualization for Fig. S8 (related to Fig. 4)
 # Fig. S8 – Immune and non-immune cell types form diverse cellular neighborhoods in tonsils with distinct CD4 T cell subset composition, related to Figure 4
 
@@ -38,7 +38,7 @@ library(BPCells) # 0.3.0
 library(tibble) # 3.2.1
 library(purrr) # 1.0.2
 library(circlize) # 0.4.16
-library(writexl) # 1.5.40
+library(writexl) # 1.5.4
 library(ggnewscale) # 0.5.0
 library(readxl) # 1.4.3
 library(openxlsx) # 4.2.8
@@ -80,7 +80,7 @@ colnames(xp_l1l2clust_cn_mtx_scaled) <- c('CN0 Fol Border',
                                           'CN2 GC LZ',
                                           'CN3 TCZ Outer',
                                           'CN4 Epi Outer',
-                                          'CN5 GZ DZ',
+                                          'CN5 GC DZ',
                                           'CN6 Mantle',
                                           'CN7 Epi Inner',
                                           'CN8 ASC Rich',
@@ -185,7 +185,7 @@ colnames(xp_l1l2clust_cn_mtx_scaled) <- c('CN0 Fol Border',
                                           'CN2 GC LZ',
                                           'CN3 TCZ Outer',
                                           'CN4 Epi Outer',
-                                          'CN5 GZ DZ',
+                                          'CN5 GC DZ',
                                           'CN6 Mantle',
                                           'CN7 Epi Inner',
                                           'CN8 ASC Rich',

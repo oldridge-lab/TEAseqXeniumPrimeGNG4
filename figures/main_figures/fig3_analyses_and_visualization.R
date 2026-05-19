@@ -1,8 +1,8 @@
 # Sam Barnett Dubensky et al.
 # Derek A. Oldridge & Laura A. Vella Labs at the Children's Hospital of Philadelphia
-# Multimodal analysis defines GNG4 as a distinguishing feature of germinal center-positioned Tfh in humans
+# Multimodal analysis defines GNG4 as a distinguishing feature of germinal center-positioned Tfh in human lymphoid tissue
 # Code and data visualization for Fig. 3
-# Figure 3 - Multimodal GNG4 expression distinguishes activated GC-like Tfh cell states
+# Fig. 3 - Multimodal GNG4 expression distinguishes activated GC-like Tfh cell states
 
 # Set up R working environment ----
 
@@ -34,10 +34,8 @@ library(readr) # 2.1.5
 library(ggplot2) # 3.5.1
 library(dplyr) # 1.1.4
 library(stringr) # 1.5.1
-library(glmGamPoi) # 1.16.0
 library(TFBSTools) # 1.42.0
 library(JASPAR2020) # 0.99.1
-library(motifmatchr) # 1.26.0
 library(ggseqlogo) # 0.2
 library(caret) # 6.0-94
 library(presto) # 1.0.0
@@ -92,6 +90,7 @@ library(UCell) # 2.8.0
 library(scales) # 1.3.0
 library(rlang) # 1.1.4
 library(ggrepel) # 0.9.5
+library(speckle) # 1.4.0
 
 # Import Seurat objects for L1-L3 TEAseq objects ----
 
@@ -750,13 +749,13 @@ donor_averages_t <- as.data.frame(t(donor_averages))
 donor_averages_t$adt <- rownames(donor_averages_t)
 write_xlsx(donor_averages_t, '/filepath/fig3/fig3h/adt_avg_ton_gng4_subsets_df_transpose.xlsx')
 
-# Fig 3I - Flow contour plots showing gating strategy of Tfh and Gy4 histogram ----
+# Fig 3I - Flow contour plots showing gating strategy of Tfh and Gγ4 histogram ----
 
 # PDF exported from FlowJo, further annotated in Illustrator
 
-# Fig 3J -  Gy4+ percentage in Tfh subsets vs nonTfh and Naive CD4 T cells ----
+# Fig 3J -  Gγ4+ percentage in Tfh subsets vs nonTfh and Naive CD4 T cells ----
 
-# Tfh Susbets % Gy4+ Barplot
+# Tfh Susbets % Gγ4+ Barplot
 tfh_gng4_flow_df <- read_excel("/filepath/fig3/fig3_flow_data.xlsx", sheet = "Gy4_Freq")
 
 tonsil_barplot_cols <- c(
@@ -790,7 +789,7 @@ tfh_gng4_flow_df_long <- tfh_gng4_flow_df_long %>%
     )
   )
 
-# Tonsil sample percentage Gy4+ barplot with 95% confidence intervals
+# Tonsil sample percentage Gγ4+ barplot with 95% confidence intervals
 tfh_gng4_flow_df_ton <- tfh_gng4_flow_df_long %>% subset(Tissue == 'Tonsil')
 ton_tfh_gy4_freq_barplot <- ggplot(tfh_gng4_flow_df_ton, aes(x = Subset, y = Freq, fill = Subset)) +
   stat_summary(
@@ -831,7 +830,7 @@ pdf('/filepath/fig3/fig3j/ton_tfh_gy4_freq_barplot_2.pdf', width = 5, height = 5
 ton_tfh_gy4_freq_barplot
 dev.off()
 
-# PBMC sample percentage Gy4+ barplot with 95% confidence intervals
+# PBMC sample percentage Gγ4+ barplot with 95% confidence intervals
 tfh_gng4_flow_df_pbmc <- tfh_gng4_flow_df_long %>% subset(Tissue == 'PBMC')
 pbmc_tfh_gy4_freq_barplot <- ggplot(tfh_gng4_flow_df_pbmc, aes(x = Subset, y = Freq, fill = Subset)) +
   stat_summary(
@@ -872,7 +871,7 @@ pdf('/filepath/fig3/fig3j/pbmc_tfh_gy4_freq_barplot.pdf', width = 5, height = 5)
 pbmc_tfh_gy4_freq_barplot
 dev.off()
 
-# Data file S10 - 95% confidence interval calculations for Gy4 percentage and GMFI values in Tfh versus nonTfh subsets of interest ----
+# Data file S11 - 95% confidence interval calculations for Gγ4 percentage and GMFI values in Tfh versus nonTfh subsets of interest ----
 
 # Select sheets from raw flow data spreadsheet
 xlsx_path <- "/filepath/fig3/fig3_flow_data.xlsx"
@@ -920,10 +919,10 @@ writexl::write_xlsx(
   path = "/filepath/fig3/fig3j/fig3j_tfh_gy4_freq_gmfi_95ci_stats_transpose.xlsx"
 )
 
-# Fig 3K - Flow contour plots showing features correlated versus anticorrelated with Gy4 protein expression in tonsil Tfh ----
+# Fig 3K - Flow contour plots showing features correlated versus anticorrelated with Gγ4 protein expression in tonsil Tfh ----
 
 # PDF exported from FlowJo, further annotated in Illustrator 
 
-# Fig 3L-3N - Connected dot plots of feature expression percentage in Gy4+ vs Gy4- Tfh groups per tonsil donor ----
+# Fig 3L-3N - Connected dot plots of feature expression percentage in Gγ4+ vs Gγ4- Tfh groups per tonsil donor ----
 
 # Percentage values exported from FlowJo, analyzed and visualized in Prism

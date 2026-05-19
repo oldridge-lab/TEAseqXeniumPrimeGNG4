@@ -1,8 +1,8 @@
 # Sam Barnett Dubensky et al.
 # Derek A. Oldridge & Laura A. Vella Labs at the Children's Hospital of Philadelphia
-# Multimodal analysis defines GNG4 as a distinguishing feature of germinal center-positioned Tfh in humans
+# Multimodal analysis defines GNG4 as a distinguishing feature of germinal center-positioned Tfh in human lymphoid tissue
 # Code and data visualization for Fig. 1
-# Figure 1 - Trimodal analysis resolves distinct Tfh-like states among tonsil and peripheral blood mononuclear cells
+# Fig. 1 - Trimodal analysis resolves distinct Tfh-like states among tonsil and peripheral blood mononuclear cells
 
 # Set up working environment ----
 
@@ -34,10 +34,8 @@ library(readr) # 2.1.5
 library(ggplot2) # 3.5.1
 library(dplyr) # 1.1.4
 library(stringr) # 1.5.1
-library(glmGamPoi) # 1.16.0
 library(TFBSTools) # 1.42.0
 library(JASPAR2020) # 0.99.1
-library(motifmatchr) # 1.26.0
 library(ggseqlogo) # 0.2
 library(caret) # 6.0-94
 library(presto) # 1.0.0
@@ -85,11 +83,14 @@ library(TxDb.Hsapiens.UCSC.hg38.knownGene) # 3.18.0
 library(ComplexHeatmap) # 2.20.0
 library(circlize) # 0.4.16
 library(BiocParallel) # 1.38.0
-library(ggnewscale) # 0.5.0
-library(ggVennDiagram) # 1.5.2
-library(biomaRt) # 2.60.0
 library(writexl) # 1.5.4
+library(ggnewscale) # 0.5.0
+library(readxl) # 1.4.3
+library(UCell) # 2.8.0
+library(scales) # 1.3.0
+library(rlang) # 1.1.4
 library(ggrepel) # 0.9.5
+library(speckle) # 1.4.0
 
 # Import Seurat object from TEAseq Data Preprocessing Step 13 (trimodal dimensionality reduction and L1 3WNN clustering of all tonsil and peripheral blood mononuclear cells, including Harmony integration across donors)
 l1_teaseq_obj <- readRDS('/filepath/step13_bulk_harmony/l1_teaseq_obj.rds')
@@ -636,7 +637,7 @@ dev.off()
 
 # Prepare GRanges for CXCR5 DAPs of interest between L2 T cell clusters
 # chr11-118883255-118884245 = CXCR5 promoter-like sequence-containing DAP enriched in Tfh subclusters
-# chr11-118872101-118873015 = CXCR5 distal enhancer-like sequence-containg DAP enriched in Tfh subclusters
+# chr11-118872101-118873015 = CXCR5 distal enhancer-like sequence-containing DAP enriched in Tfh subclusters
 tfh_cxcr5_dap_df <- data.frame(
   seqnames = "chr11",
   start = c(118883255, 118872101), # Coordinates for start of CXCR5 PLS- and dELS-containing DAPs, respectively

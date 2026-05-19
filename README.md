@@ -1,4 +1,4 @@
-This GitHub repository contains scripts to reproduce figures related to TEAseq and Xenium Prime analyses from our manuscript titled 'Multimodal analysis defines GNG4 as a distinguishing feature of germinal center-positioned Tfh in humans' (Sam Barnett Dubensky et al. Derek A. Oldridge & Laura A. Vella Labs at the Children's Hospital of Philadelphia)
+This GitHub repository contains scripts for preprocessing, analysis, and visualization of TEAseq and Xenium Prime datasets featured in our manuscript titled 'Multimodal analysis defines GNG4 as a distinguishing feature of germinal center-positioned Tfh in human lymphoid tissue' (Sam Barnett Dubensky et al. Derek A. Oldridge & Laura A. Vella Labs at the Children's Hospital of Philadelphia)
 
 An identical codebase is available on the Vella Lab GitHub - https://github.com/VellaLab/TEAseqXeniumPrimeGNG4
 

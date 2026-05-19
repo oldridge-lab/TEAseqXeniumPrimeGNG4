@@ -1,8 +1,8 @@
 # Sam Barnett Dubensky et al.
 # Derek A. Oldridge & Laura A. Vella Labs at the Children's Hospital of Philadelphia
-# Multimodal analysis defines GNG4 as a distinguishing feature of germinal center-positioned Tfh in humans
+# Multimodal analysis defines GNG4 as a distinguishing feature of germinal center-positioned Tfh in human lymphoid tissue
 # Code and data visualization for Fig. 4
-# Figure 4 - GNG4+ Tfh are primarily positioned within the germinal center light zone
+# Fig. 4 - GNG4+ Tfh are primarily positioned within the germinal center light zone
 
 # Set up R working environment ----
 
@@ -34,16 +34,13 @@ library(readr) # 2.1.5
 library(ggplot2) # 3.5.1
 library(dplyr) # 1.1.4
 library(stringr) # 1.5.1
-library(glmGamPoi) # 1.16.0
 library(TFBSTools) # 1.42.0
 library(JASPAR2020) # 0.99.1
-library(motifmatchr) # 1.26.0
 library(ggseqlogo) # 0.2
 library(caret) # 6.0-94
 library(presto) # 1.0.0
 library(SoupX) # 1.6.2
 library(scDblFinder) # 1.19.1
-library(Nebulosa) # 1.14.0
 library(clusterProfiler) # 4.12.6 
 library(enrichplot) # 1.24.2
 library(org.Hs.eg.db) # 3.19.1
@@ -1064,8 +1061,7 @@ gene_colors <- c(
 # Define kernel smoothing function to create smoothed line plot of average Tfh gene expression versus distance
 # Original function from Derek A. Oldridge
 
-' Kernel Smoothing Function
-#'
+#' Kernel Smoothing Function
 #' Performs kernel smoothing on input data (xi, yi) to produce
 #' smoothed estimates (yo) at specified output points (xo).
 #'

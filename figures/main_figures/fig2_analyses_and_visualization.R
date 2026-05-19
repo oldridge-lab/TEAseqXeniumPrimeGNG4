@@ -1,8 +1,8 @@
 # Sam Barnett Dubensky et al.
 # Derek A. Oldridge & Laura A. Vella Labs at the Children's Hospital of Philadelphia
-# Multimodal analysis defines GNG4 as a distinguishing feature of germinal center-positioned Tfh in humans
+# Multimodal analysis defines GNG4 as a distinguishing feature of germinal center-positioned Tfh in human lymphoid tissue
 # Code and data visualization for Fig. 2
-# Figure 2 - GC versus nonGC-like Tfh states are skewed in helper-polarity phenotype
+# Fig. 2 - GC versus nonGC-like Tfh states are skewed in helper-polarity phenotype
 
 # Set up R working environment ----
 
@@ -34,10 +34,8 @@ library(readr) # 2.1.5
 library(ggplot2) # 3.5.1
 library(dplyr) # 1.1.4
 library(stringr) # 1.5.1
-library(glmGamPoi) # 1.16.0
 library(TFBSTools) # 1.42.0
 library(JASPAR2020) # 0.99.1
-library(motifmatchr) # 1.26.0
 library(ggseqlogo) # 0.2
 library(caret) # 6.0-94
 library(presto) # 1.0.0
@@ -89,7 +87,10 @@ library(writexl) # 1.5.4
 library(ggnewscale) # 0.5.0
 library(readxl) # 1.4.3
 library(UCell) # 2.8.0
+library(scales) # 1.3.0
+library(rlang) # 1.1.4
 library(ggrepel) # 0.9.5
+library(speckle) # 1.4.0
 
 # Import Seurat object from Data Preprocessing Step 15 (trimodal dimensionality reduction and L3 3WNN subclustering of Tfh-like cells from L2 T cell object, including Harmony integration across donors)
 l3_teaseq_tfh_obj <- readRDS('/filepath/step15_tfh_subcluster/l3_teaseq_tfh_obj.rds')
@@ -158,7 +159,7 @@ tissue_cols <- c("PBMC" = "#4b94d6", "Tonsil" = "#e49a78")
 
 # Fig 2A - Experimental schematic for parallel TEAseq and spectral flow cytometry analysis of Tfh cell states ----
 
-# Created in BioRender and exported as PDF, edited it Illustrator
+# Created in BioRender and exported as PDF, edited in Illustrator
 
 # Fig 2B - 3WNN Clustering and UMAP of L3 Tfh-like cells ----
 
@@ -911,7 +912,7 @@ tfh_quadrant_freq_barplot <- ggplot(tonsil_tfh_cd127_tigit_summary_df, aes(x = S
   ) +
   labs(
     #  x     = "T Cell Subset",
-    y     = "Quadrant Frequency",
+    y     = "Quadrant Frequency"
   ) + NoLegend()
 tfh_quadrant_freq_barplot
 pdf('/filepath/fig2/fig2k/tonsil_tfh_cd127_tigit_quadrant_freq_barplot.pdf', width = 4, height = 4)
@@ -987,13 +988,13 @@ pdf('/filepath/fig2/fig2l/tfh_bcl6_pct_barplot.pdf', width = 6.5, height = 5)
 tfh_bcl6_pct_barplot
 dev.off()
 
-# Data file S10 - 95% confidence interval calculations for TF GMFI and BCL6 expression percentage analysis of spectral flow cytometry data ----
+# Data file S11 - 95% confidence interval calculations for TF GMFI and BCL6 expression percentage analysis of spectral flow cytometry data ----
 
 # Select sheets from raw flow data spreadsheet
 xlsx_path <- "/filepath/fig2/fig2_flow_data_spreadsheet.xlsx"
 sheets <- c("Tbet", "GATA3", "RORgt", "Bcl6_Pct")
 
-# Function to retrieve tissue and donor groups from raw data, then compute relevant 95CI metrics
+# Function to retrieve tissue and donor groups from raw data, then compute relevant 95% CI metrics
 process_sheet <- function(sheet_name) {
   
   df <- read_excel(xlsx_path, sheet = sheet_name)
@@ -1021,14 +1022,14 @@ process_sheet <- function(sheet_name) {
 # Execute function
 all_stats <- map_dfr(sheets, process_sheet)
 
-# Save 95CI metrics
+# Save 95% CI metrics
 writexl::write_xlsx(
   list(Stats_by_Group = all_stats %>%
          select(sheet, Tissue, Subset, n, mean, sd, se, ci, ymin, ymax)),
   path = "/filepath/fig2/fig2_flow_data_95ci_stats.xlsx"
 )
 
-# Data file S10 - 95% confidence interval calculations for TIGIT vs CD127 quadrant percentage analysis of spectral flow cytometry data ----
+# Data file S11 - 95% confidence interval calculations for TIGIT vs CD127 quadrant percentage analysis of spectral flow cytometry data ----
 
 # Prepare dataframe
 df <- read_excel("/filepath/fig2/fig2_flow_data_spreadsheet.xlsx", sheet = "TIGIT_IL7R_Pct")

@@ -1,13 +1,13 @@
 # Sam Barnett Dubensky et al.
 # Derek A. Oldridge & Laura A. Vella Labs at the Children's Hospital of Philadelphia
-# Multimodal analysis defines GNG4 as a distinguishing feature of germinal center-positioned Tfh in humans
-# Code and data visualization for Fig. S15 (related to Fig. 5I & 5J)
-# Fig. S15 - GNG4 expression is specifically induced in human GC-like Tfh during both SARS-CoV-2 and influenza vaccine responses, related to Figure 5
+# Multimodal analysis defines GNG4 as a distinguishing feature of germinal center-positioned Tfh in human lymphoid tissue
+# Code and data visualization for Fig. S15 (related to Fig. 6A & 6B)
+# Fig. S15 - GNG4 expression is specifically induced in human GC-like Tfh during both SARS-CoV-2 mRNA and inactivated influenza vaccine responses, related to Figure 6
 
 # Set up R working environment ----
 
 # Set working directory
-setwd('/filepath/fig5/fig5_supp/')
+setwd('/filepath/fig6/fig6_supp/')
 
 # Set seed
 set.seed(26)
@@ -37,7 +37,6 @@ library(stringr) # 1.5.1
 library(glmGamPoi) # 1.16.0
 library(TFBSTools) # 1.42.0
 library(JASPAR2020) # 0.99.1
-library(motifmatchr) # 1.26.0
 library(ggseqlogo) # 0.2
 library(caret) # 6.0-94
 library(presto) # 1.0.0
@@ -95,7 +94,7 @@ library(rlang) # 1.1.4
 # Specify color palette for dot plots
 rdbu_colors <- brewer.pal(11, "RdBu")
 
-# Specify colors for numbered clusters 0-26 in reanalysis of Borcherding et al. SARS2 study
+# Specify colors for numbered clusters 0-26 in reanalysis of Borcherding et al. BNT162b2 study
 cols_borcherding <- c(
   "0"  = "#add5df",
   "1"  = "#8ab1cc",
@@ -126,7 +125,7 @@ cols_borcherding <- c(
   "26" = "#b37cbf"
 )
 
-# Specify colors for numbered clusters 0-26 in reanalysis of Schattgen et al. IIV study
+# Specify colors for numbered clusters 0-26 in reanalysis of Schattgen et al. Flucelvax study
 cols_schattgen <- c(
   "0"  = "#8ab1cc",
   "1"  = "#add5df",
@@ -157,7 +156,7 @@ cols_schattgen <- c(
   "26" = "#b37cbf"
 )
 
-# Specify colors for Level 2 Tfh subclustering object in reanalysis of Schattgen et al. IIV study
+# Specify colors for Level 2 Tfh subclustering object in reanalysis of Schattgen et al. Flucelvax study
 tfh_type_cols <- c(
   'GC' = '#e17794',
   'IL10 TFH' = '#657ab0',
@@ -169,23 +168,23 @@ tfh_type_cols <- c(
 
 # Import Seurat objects for reanalysis ----
 
-# For Fig S15A-S15C and Fig 5I -
+# For Fig S15A-S15C and Fig 6A -
 # Reanalysis of Borcherding et al. CD4+ T cells exhibit distinct transcriptional phenotypes in the lymph nodes and blood following mRNA vaccination in humans. Nat Immunol. 2024. PMID 39164479. https://pubmed.ncbi.nlm.nih.gov/39164479/
-# Import T cell subclustering Seurat object from SARS2 mRNA vaccination LN FNA scRNAseq study
-# Seurat object .rds file obtained from Figure2 tab of CellPilot data repository (https://cellpilot.emed.wustl.edu/)
+# Import T cell subclustering Seurat object from BNT162b2 mRNA vaccination LN FNA scRNAseq study
+# Seurat object .rds file obtained from 'Figure2' tab of CellPilot data repository (https://cellpilot.emed.wustl.edu/)
 covid_tcell_obj <- readRDS('/filepath/reanalysis/borcherding_mrna_vax/BorcherdingFig2.rds')
 
-# For Fig S15D-S15K and Fig 5J -
+# For Fig S15D-S15K and Fig 6B -
 # Reanalysis of Schattgen et al. Influenza vaccination stimulates maturation of the human T follicular helper cell response. Nat Immunol. 2024. PMID 39164477. https://pubmed.ncbi.nlm.nih.gov/39164477/
-# Import Seurat objects for T cell clustering and Level 2 Tfh subclustering from IIV LN FNA scRNAseq study 
+# Import Seurat objects for T cell clustering and Level 2 Tfh subclustering from Flucelvax LN FNA scRNAseq study 
 # Seurat object .rds files ('intergrated_Tcells_harmony_bydonor.rds' and 'intergrated_Tfh_harmony_bydonor.rds') obtained from Zenodo data repository (Version 3, Oct 20 2023, https://zenodo.org/records/12611325)
 flu_tcell_obj <- readRDS('/filepath/reanalysis/intergrated_Tcells_harmony_bydonor.rds')
 flu_tfh_obj <- readRDS('/filepath/reanalysis/intergrated_Tfh_harmony_bydonor.rds')
 
-# Fig S15A - UMAP of CD4 and CD8 T cell clustering in Borcherding et al. SARS2 study ----
+# Fig S15A - UMAP of CD4 and CD8 T cell clustering in Borcherding et al. BNT162b2 study ----
 
 Idents(covid_tcell_obj) <- 'seurat_clusters' # original clusters 0-11, with c3 annotated as CD4+ GC Tfh
-pdf('/filepath/fig5/fig5_supp/covid_tcell_clust_numb_labs_dimplot.pdf', width = 6, height = 6)
+pdf('/filepath/fig6/fig6_supp/covid_tcell_clust_numb_labs_dimplot.pdf', width = 6, height = 6)
 DimPlot(covid_tcell_obj, label = TRUE, order = TRUE, label.box = TRUE, cols = cols_borcherding, pt.size = 1) + coord_fixed() + theme(plot.title = element_blank()) + NoLegend()
 dev.off()
 
@@ -195,19 +194,19 @@ dev.off()
 
 # UMAP without legend
 Idents(covid_tcell_obj) <- 'seurat_clusters'
-pdf('/filepath/fig5/fig5_supp/covid_tcell_clust_numb_labs_gng4_feat_plot.pdf', width = 6, height = 6)
+pdf('/filepath/fig6/fig6_supp/covid_tcell_clust_numb_labs_gng4_feat_plot.pdf', width = 6, height = 6)
 FeaturePlot(covid_tcell_obj, features = 'GNG4', pt.size = 1, label = TRUE, order = TRUE, cols = c('grey','coral2')) + coord_fixed() + theme(plot.title = element_blank()) + NoLegend()
 dev.off()
 
 # UMAP with legend, cropped to legend and placed in Fig S15B UMAP figure panel using Illustrator
 Idents(covid_tcell_obj) <- 'seurat_clusters'
-pdf('/filepath/fig5/fig5_supp/covid_tcell_clust_numb_labs_gng4_feat_plot_legend.pdf', width = 6, height = 6)
+pdf('/filepath/fig6/fig6_supp/covid_tcell_clust_numb_labs_gng4_feat_plot_legend.pdf', width = 6, height = 6)
 FeaturePlot(covid_tcell_obj, features = 'GNG4', pt.size = 1, label = TRUE, order = TRUE, cols = c('grey','coral2')) + coord_fixed() + theme(plot.title = element_blank())
 dev.off()
 
 # Fig S15C - DotPlot of RNA expression for GNG4 and other DEGs across T cell clusters (reanalysis of Borcherding et al. study) ----
 
-pdf('/filepath/fig5/fig5_supp/covid_tcell_seurat_clust_dotplot.pdf', height = 5, width = 9)
+pdf('/filepath/fig6/fig6_supp/covid_tcell_seurat_clust_dotplot.pdf', height = 5, width = 9)
 Idents(covid_tcell_obj) <- 'seurat_clusters'
 DotPlot(covid_tcell_obj, features = c('CD4','CD8A','MKI67','LEF1','CCR7','IL7R','KLF2','GPR183','FOXP3','IL2RA','IL10','CXCR5','PDCD1','TIGIT','BCL6','TOX2','GNG4'), dot.scale = 5.25,
         group.by = 'seurat_clusters', cluster.idents = TRUE) +
@@ -264,19 +263,19 @@ flu_tcell_obj$gctfh_vs_others_annot <- ifelse(
 
 Idents(flu_tfh_obj) <- 'Tfh_type' # annotations from authors
 table(flu_tfh_obj$Tfh_type)
-pdf('/filepath/fig5/fig5_supp/flu_tfh_dimplot.pdf', width = 6, height = 6)
+pdf('/filepath/fig6/fig6_supp/flu_tfh_dimplot.pdf', width = 6, height = 6)
 DimPlot(flu_tfh_obj, group.by = 'Tfh_type', cols = tfh_type_cols, order = TRUE, pt.size = 2, label.box = TRUE, label = TRUE) + coord_fixed() + theme(plot.title = element_blank()) + NoLegend()
 dev.off()
   
 # Fig S15E - UMAP of GNG4 RNA expression in L2 Tfh subclustering object (reanalysis of Schattgen et al. study) ----
 
 # UMAP without legend
-pdf('/filepath/fig5/fig5_supp/flu_tfh_gng4_feat_plot_nolegend.pdf', width = 6, height = 6)
+pdf('/filepath/fig6/fig6_supp/flu_tfh_gng4_feat_plot_nolegend.pdf', width = 6, height = 6)
 FeaturePlot(flu_tfh_obj, features = 'GNG4', pt.size = 2, order = TRUE, cols = c('grey','coral2')) + coord_fixed() + theme(plot.title = element_blank()) + NoLegend()
 dev.off()
 
 # UMAP with legend, then cropped to legend and placed in Fig S15E UMAP figure panel using Illustrator
-pdf('/filepath/fig5/fig5_supp/flu_tfh_gng4_feat_plot_with_legend.pdf', width = 6, height = 6)
+pdf('/filepath/fig6/fig6_supp/flu_tfh_gng4_feat_plot_with_legend.pdf', width = 6, height = 6)
 FeaturePlot(flu_tfh_obj, features = 'GNG4', pt.size = 2, order = TRUE, cols = c('grey','coral2')) + coord_fixed() + theme(plot.title = element_blank())
 dev.off()
 
@@ -291,7 +290,7 @@ Idents(flu_tfh_obj) <- factor(
 )
 
 # Make dotplot
-pdf('/filepath/fig5/fig5_supp/flu_tfh_feat_dotplot.pdf', height = 5, width = 10)
+pdf('/filepath/fig6/fig6_supp/flu_tfh_feat_dotplot.pdf', height = 5, width = 10)
 DotPlot(flu_tfh_obj, features = c('MKI67','LEF1','CCR7','IL7R','KLF2','GPR183','FOXP3','IL2RA','IL10','CXCR5','PDCD1','TIGIT','BCL6','TOX2','GNG4'), dot.scale = 10) + scale_color_gradient2(
   low = rdbu_colors[11],
   mid = "white",
@@ -306,26 +305,26 @@ dev.off()
 # Fig S15G - UMAP of Level 1 T cell object from Schattgen et al. study ----
 
 Idents(flu_tcell_obj) <- 'seurat_clusters' # original author annotations, where c14 is the original 'Tfh/Treg' cluster (no 'GC Tfh' annotation as is)
-pdf('/filepath/fig5/fig5_supp/flu_tcell_clust_numb_dimplot.pdf', width = 6, height = 6)
+pdf('/filepath/fig6/fig6_supp/flu_tcell_clust_numb_dimplot.pdf', width = 6, height = 6)
 DimPlot(flu_tcell_obj, group.by = 'seurat_clusters', cols = cols_schattgen, order = TRUE, pt.size = 2, label.box = TRUE, label = TRUE) + coord_fixed() + theme(plot.title = element_blank()) + NoLegend()
 dev.off()
 
 # Fig S15H -  UMAP of GNG4 RNA expression in L1 T cell object (reanalysis of Schattgen et al. study)  ----
 
 # UMAP without legend
-pdf('/filepath/fig5/fig5_supp/flu_tcell_no_labs_gng4_feat_plot.pdf', width = 6, height = 6)
+pdf('/filepath/fig6/fig6_supp/flu_tcell_no_labs_gng4_feat_plot.pdf', width = 6, height = 6)
 FeaturePlot(flu_tcell_obj, features = 'GNG4', pt.size = 2, label = FALSE, order = TRUE, cols = c('grey','coral2')) + coord_fixed() + theme(plot.title = element_blank()) + NoLegend()
 dev.off()
 
 # UMAP with legend, then cropped to legend and placed in Fig S15H UMAP figure panel using Illustrator
 Idents(flu_tcell_obj) <- 'seurat_clusters' # where c14 is the original 'Tfh/Treg' cluster
-pdf('/filepath/fig5/fig5_supp/flu_tcell_gng4_feat_plot_legend.pdf', width = 6, height = 6)
+pdf('/filepath/fig6/fig6_supp/flu_tcell_gng4_feat_plot_legend.pdf', width = 6, height = 6)
 FeaturePlot(flu_tcell_obj, features = 'GNG4', pt.size = 2, label = TRUE, order = TRUE, cols = c('grey','coral2')) + coord_fixed() + theme(plot.title = element_blank())
 dev.off()
 
 # Fig S15I - DotPlot of RNA expression for GNG4 and other DEGs across clusters of L1 T cell object (reanalysis of Schattgen et al. study) ----
 
-pdf('/filepath/fig5/fig5_supp/flu_tcell_seurat_cluster_dotplot.pdf', height = 5, width = 7.75)
+pdf('/filepath/fig6/fig6_supp/flu_tcell_seurat_cluster_dotplot.pdf', height = 5, width = 7.75)
 Idents(flu_tcell_obj) <- 'seurat_clusters' # where c14 is the original 'Tfh/Treg' cluster
 DotPlot(flu_tcell_obj, features = c('CD4','CD8A','MKI67','LEF1','CCR7','IL7R','KLF2','GPR183','FOXP3','IL2RA','IL10','CXCR5','PDCD1','TIGIT','BCL6','TOX2','GNG4'), dot.scale = 6,
         group.by = 'seurat_clusters', cluster.idents = TRUE) +
@@ -345,13 +344,13 @@ dev.off()
 Idents(flu_tcell_obj) <- 'gctfh_annot' # from metadata column determined above for mapping L2 cell annotations to L1 object
 gctfh_yesno_cols <- c('no' = 'grey', # no, not from 'GC' cluster in L2 object
                       'yes' = '#e17794') # yes, is from 'GC' cluster in L2 object
-pdf('/filepath/fig5/fig5_supp/flu_gctfh_mapped_to_tcell_obj_annot_dimplot.pdf', width = 6, height = 6)
+pdf('/filepath/fig6/fig6_supp/flu_gctfh_mapped_to_tcell_obj_annot_dimplot.pdf', width = 6, height = 6)
 DimPlot(flu_tcell_obj, group.by = 'gctfh_annot', cols = gctfh_yesno_cols, order = TRUE, pt.size = 2) + coord_fixed() + theme(plot.title = element_blank()) + NoLegend()
 dev.off()
 
 # Fig S15K - DotPlot of RNA expression for GNG4 and other DEGs between L2-to-L1 mapped 'GC Tfh' cluster versus other clusters of L1 T cell object (reanalysis of Schattgen et al. study)  -----
 Idents(flu_tcell_obj) <- 'gctfh_vs_others_annot' # metadata column determined above wherein L2 'GC Tfh' cells are annotated in L1 object and original L1 'seurat_clusters' for remaining cells in object are retained
-pdf('/filepath/fig5/fig5_supp/flu_tcell_seurat_clust_vs_gctfh_dotplot.pdf', height = 5, width = 8.25)
+pdf('/filepath/fig6/fig6_supp/flu_tcell_seurat_clust_vs_gctfh_dotplot.pdf', height = 5, width = 8.25)
 DotPlot(flu_tcell_obj, features = c('CD4','CD8A','MKI67','LEF1','CCR7','IL7R','KLF2','GPR183','FOXP3','IL2RA','IL10','CXCR5','PDCD1','TIGIT','BCL6','TOX2','GNG4'), dot.scale = 5.25,
         group.by = 'gctfh_vs_others_annot', cluster.idents = TRUE) +
   scale_color_gradient2(
